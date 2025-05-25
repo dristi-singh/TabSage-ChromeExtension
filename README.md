@@ -1,6 +1,5 @@
 # TabSage - Context-Aware Chrome Tab Manager
 
-![TabSage](./Screenshots/Dashboard.png)
 
 ## HackVortex 2025 Submission
 
