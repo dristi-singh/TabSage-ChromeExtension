@@ -211,7 +211,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           },
         });
       } else {
-        // Fallback to mostRecentTab if no active tab is found
+        // No active tab found, fall back to the most recent tab
         if (mostRecentTab) {
           console.warn(
             "TabSage: No active tab found for getCurrentTab, falling back to mostRecentTab."

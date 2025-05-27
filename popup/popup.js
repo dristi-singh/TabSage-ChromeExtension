@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    if (statusMessageElement) statusMessageElement.textContent = ""; // Clear previous messages
+    if (statusMessageElement) statusMessageElement.textContent = ""; 
 
     // Save the intent for the current tab
     chrome.runtime.sendMessage(

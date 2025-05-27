@@ -4,7 +4,7 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
-  // DOM elements
+ 
   const intentGroupsContainer = document.getElementById(
     "intent-groups-container"
   );
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load and display the tab data
   loadTabData();
 
-  // Set up event listeners
+  
   exportBtn.addEventListener("click", exportSessionData);
   refreshBtn.addEventListener("click", loadTabData);
 
