@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TabSage Dashboard</title>
+    <!-- Bootstrap 5 CSS from CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        min-height: 100vh;
+        background-color: #f8f9fa;
+      }
+      .header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e9ecef;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+      }
+      .tab-card {
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
+      }
+      .tab-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+      .intent-group {
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        background-color: white;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      }
+      .intent-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #e9ecef;
+      }
+      .tab-list {
+        padding: 1rem;
+      }
+      .favicon {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 3rem;
+      }
+      .rename-intent-input {
+        max-width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1>TabSage Dashboard</h1>
+          <div>
+            <button id="export-btn" class="btn btn-outline-primary me-2">
+              <i class="bi bi-download"></i> Export Session
+            </button>
+            <button id="refresh-btn" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-clockwise"></i> Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mb-5">
+      <!-- Stats Row -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Total Tabs</h5>
+              <p id="total-tabs" class="card-text display-4">0</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Intent Groups</h5>
+              <p id="total-groups" class="card-text display-4">0</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Session Started</h5>
+              <p id="session-time" class="card-text">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab groups will be dynamically inserted here -->
+      <div id="intent-groups-container"></div>
+
+      <!-- Empty state -->
+      <div id="empty-state" class="empty-state">
+        <h3 class="text-muted">No tabs saved yet</h3>
+        <p class="text-muted">
+          Open new tabs and add intents to organize them here.
+        </p>
+      </div>
+    </main>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="dashboard.js"></script>
+  </body>
+</html>
