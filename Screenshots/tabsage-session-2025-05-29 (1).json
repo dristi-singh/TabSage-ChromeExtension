@@ -1,0 +1,61 @@
+{
+  "name": "TabSage Session Export",
+  "date": "2025-05-29T09:33:43.973Z",
+  "tabCount": 9,
+  "tabs": [
+    {
+      "id": 530491626,
+      "intent": "Learn",
+      "timestamp": 1748510102632,
+      "url": "https://openai.com/chatgpt/overview/"
+    },
+    {
+      "id": 530491670,
+      "intent": "Github",
+      "timestamp": 1748510176395,
+      "url": "https://github.com/"
+    },
+    {
+      "id": 530491803,
+      "intent": "Research",
+      "timestamp": 1748510913898,
+      "url": "https://en.wikipedia.org/wiki/Prompt_engineering"
+    },
+    {
+      "id": 530491810,
+      "intent": "Research",
+      "timestamp": 1748510918806,
+      "url": "https://arxiv.org/abs/2303.12712"
+    },
+    {
+      "id": 530491823,
+      "intent": "Research",
+      "timestamp": 1748510951434,
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+    },
+    {
+      "id": 530491828,
+      "intent": "Learn",
+      "timestamp": 1748510982647,
+      "url": "https://www.freecodecamp.org/learn/"
+    },
+    {
+      "id": 530491833,
+      "intent": "Learn",
+      "timestamp": 1748511001637,
+      "url": "https://www.udemy.com/"
+    },
+    {
+      "id": 530491845,
+      "intent": "Shopping",
+      "timestamp": 1748511022009,
+      "url": "https://www.amazon.in/"
+    },
+    {
+      "id": 530491854,
+      "intent": "Shopping",
+      "timestamp": 1748511035728,
+      "url": "https://www.flipkart.com/"
+    }
+  ]
+}

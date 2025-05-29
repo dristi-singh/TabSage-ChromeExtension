@@ -1,25 +1,49 @@
 /**
  * TabSage - Popup Script
  * Handles the user interface for capturing tab intent
+ * Created by The Silicon Savants - Copyright (c) 2025
  */
 
 document.addEventListener("DOMContentLoaded", function () {
-  const intentInput = document.getElementById("intent-input");
+  const intentSelect = document.getElementById("intent-select");
+  const otherIntentInput = document.getElementById("other-intent");
+  const otherIntentContainer = document.getElementById("other-intent-container");
   const saveButton = document.getElementById("save-intent");
   const currentUrlElement = document.getElementById("current-url");
-  const statusMessageElement = document.getElementById("status-message"); // Assuming you have an element for messages
+  const statusMessageElement = document.getElementById("status-message");
+  const dashboardButton = document.getElementById("open-dashboard");
 
   let currentTabId = null;
   let currentTabUrl = "Loading...";
   let isAutoTriggered = false;
 
-  // Focus on the input field when popup opens
-  intentInput.focus();
+  // Focus on the dropdown field when popup opens
+  intentSelect.focus();
 
   // Check for URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const tabIdFromUrl = urlParams.get("tabId");
   isAutoTriggered = urlParams.get("autoTrigger") === "true";
+
+  // Show/hide the "Other" input field based on select dropdown
+  intentSelect.addEventListener("change", function() {
+    if (this.value === "other") {
+      // Show the other input field with animation and focus on it
+      otherIntentContainer.style.display = "block";
+      // Use setTimeout to ensure the display change happens first
+      setTimeout(() => {
+        otherIntentContainer.classList.add("visible");
+        otherIntentInput.focus();
+      }, 10);
+    } else {
+      // Hide the other input field with animation
+      otherIntentContainer.classList.remove("visible");
+      // After animation completes, hide the container
+      setTimeout(() => {
+        otherIntentContainer.style.display = "none";
+      }, 300);
+    }
+  });
 
   if (tabIdFromUrl) {
     currentTabId = parseInt(tabIdFromUrl);
@@ -41,7 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const dashboardPage = "dashboard/dashboard.html";
         const popupPage = "popup/popup.html";
         if (currentTabUrl.includes(dashboardPage) || currentTabUrl.includes(popupPage)) {
-            intentInput.disabled = true;
+            intentSelect.disabled = true;
+            otherIntentInput.disabled = true;
             saveButton.disabled = true;
             if (statusMessageElement) {
                 statusMessageElement.textContent = "Cannot set intent for this page.";
@@ -75,7 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const dashboardPage = "dashboard/dashboard.html";
         const popupPage = "popup/popup.html";
         if (currentTabUrl.includes(dashboardPage) || currentTabUrl.includes(popupPage)) {
-            intentInput.disabled = true;
+            intentSelect.disabled = true;
+            otherIntentInput.disabled = true;
             saveButton.disabled = true;
             if (statusMessageElement) {
                 statusMessageElement.textContent = "Cannot set intent for this page.";
@@ -96,20 +122,40 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Save button click handler
+  // Set up event listeners
   saveButton.addEventListener("click", saveTabIntent);
+  dashboardButton.addEventListener("click", openDashboard);
 
-  // Also save when Enter key is pressed in the input field
-  intentInput.addEventListener("keypress", function (e) {
+  // Also save when Enter key is pressed in the custom intent input
+  otherIntentInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
-      e.preventDefault(); // Prevent default form submission if any
+      e.preventDefault();
       saveTabIntent();
     }
   });
 
+  // Function to open the dashboard in a new tab
+  function openDashboard() {
+    chrome.runtime.sendMessage({ action: "openDashboard" });
+    window.close(); // Close the popup
+  }
+
+  // Function to get the current intent value (either from dropdown or "Other" input)
+  function getSelectedIntent() {
+    const selectedValue = intentSelect.value;
+    
+    // If "other" is selected, use the value from the custom input field
+    if (selectedValue === "other") {
+      return otherIntentInput.value.trim();
+    }
+    
+    // Otherwise return the value from the dropdown
+    return selectedValue;
+  }
+
   // Function to save the tab intent
   function saveTabIntent() {
-    const intent = intentInput.value.trim();
+    const intent = getSelectedIntent();
 
     if (!currentTabId) {
       console.error("No tab ID to save intent for.");
@@ -128,17 +174,25 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    // Validate intent selection
     if (!intent) {
-      intentInput.classList.add("is-invalid");
-      setTimeout(() => intentInput.classList.remove("is-invalid"), 2000);
+      // Show different error messages based on whether "other" is selected
+      if (intentSelect.value === "other") {
+        otherIntentInput.classList.add("is-invalid");
+        setTimeout(() => otherIntentInput.classList.remove("is-invalid"), 2000);
+      } else {
+        intentSelect.classList.add("is-invalid");
+        setTimeout(() => intentSelect.classList.remove("is-invalid"), 2000);
+      }
+      
       if (statusMessageElement) {
-        statusMessageElement.textContent = "Please enter an intent.";
+        statusMessageElement.textContent = "Please select or enter an intent.";
         statusMessageElement.className = "text-warning";
       }
       return;
     }
 
-    if (statusMessageElement) statusMessageElement.textContent = ""; 
+    if (statusMessageElement) statusMessageElement.textContent = ""; // Clear previous messages
 
     // Save the intent for the current tab
     chrome.runtime.sendMessage(
@@ -156,12 +210,12 @@ document.addEventListener("DOMContentLoaded", function () {
             statusMessageElement.className = "text-danger";
           }
           saveButton.textContent = "Error!";
-          // ... (button styling for error)
+          saveButton.classList.add("btn-danger");
+          saveButton.classList.remove("btn-primary");
           return;
         }
 
         if (response && response.success) {
-          const originalText = saveButton.textContent;
           saveButton.textContent = "Saved!";
           saveButton.classList.add("btn-success");
           saveButton.classList.remove("btn-primary");
@@ -185,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           setTimeout(() => {
-            saveButton.textContent = "Save";
+            saveButton.textContent = "Save Intent";
             saveButton.classList.add("btn-primary");
             saveButton.classList.remove("btn-danger");
           }, 2000);

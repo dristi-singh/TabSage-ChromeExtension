@@ -3,13 +3,18 @@
   "name": "TabSage",
   "version": "1.0.0",
   "description": "Context-Aware Chrome Tab Manager",
+  "author": "The Silicon Savants",
   "permissions": [
     "storage",
     "tabs"
   ],
   "background": {
     "service_worker": "background.js"
-  },  "action": {
+  },
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
     "default_popup": "popup/popup.html",
     "default_icon": {
       "16": "icons/icon_16.png",
@@ -17,15 +22,16 @@
       "192": "icons/icon_192.png"
     }
   },
-  "chrome_url_overrides": {
-    "newtab": "dashboard/dashboard.html"
-  },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; script-src-elem 'self' https://cdn.jsdelivr.net; object-src 'self';"
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://cdn.jsdelivr.net;"
   },
   "icons": {
     "16": "icons/icon_16.png",
     "32": "icons/icon_32.png",
     "192": "icons/icon_192.png"
-  }
+  },
+  "web_accessible_resources": [{
+    "resources": ["icons/*", "dashboard/*"],
+    "matches": ["<all_urls>"]
+  }]
 }

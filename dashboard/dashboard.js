@@ -1,10 +1,11 @@
 /**
  * TabSage - Dashboard Script
  * Manages the tab dashboard interface, grouping, and export functionality
+ * Created by The Silicon Savants - Copyright (c) 2025
  */
 
 document.addEventListener("DOMContentLoaded", function () {
- 
+  // DOM elements
   const intentGroupsContainer = document.getElementById(
     "intent-groups-container"
   );
@@ -14,13 +15,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const sessionTimeElement = document.getElementById("session-time");
   const exportBtn = document.getElementById("export-btn");
   const refreshBtn = document.getElementById("refresh-btn");
+  const newTabBtn = document.getElementById("new-tab-btn");
 
   // Load and display the tab data
   loadTabData();
 
-  
+  // Set up event listeners
   exportBtn.addEventListener("click", exportSessionData);
   refreshBtn.addEventListener("click", loadTabData);
+  
+  // Add handler for the new tab button
+  if (newTabBtn) {
+    newTabBtn.addEventListener("click", function() {
+      chrome.tabs.create({}, function(tab) {
+        console.log("Created new tab:", tab.id);
+      });
+    });
+  }
 
   /**
    * Loads tab data from storage and renders the dashboard
@@ -86,6 +97,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
+   * Gets the favicon URL for a given URL
+   * @param {string} url - The URL of the page
+   * @returns {string} - The URL of the favicon
+   */
+  function getFaviconUrl(url) {
+    try {
+      // Extract domain for favicon
+      const urlObj = new URL(url);
+      const domain = urlObj.hostname;
+      return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+    } catch (e) {
+      // Return default icon if URL is invalid
+      return '../icons/icon_32.png';
+    }
+  }
+
+  /**
    * Renders the tab groups in the dashboard
    * @param {Object} groupedTabs - Object with intents as keys and arrays of tabs as values
    */
@@ -127,13 +155,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // Format the date
         const date = new Date(tab.timestamp);
         const formattedDate = date.toLocaleString();
+        
+        // Get favicon URL
+        const faviconUrl = getFaviconUrl(tab.url);
 
         // Create the card content
         tabCard.innerHTML = `
           <div class="card-body p-3">
             <div class="d-flex justify-content-between">
               <div class="d-flex align-items-center">
-                <img src="chrome://favicon/${tab.url}" class="favicon" onerror="this.src='../icons/icon128.png';this.style.opacity='0.3'">
+                <img src="${faviconUrl}" class="favicon" onerror="this.src='../icons/icon_32.png';this.style.opacity='0.3'">
                 <a href="${tab.url}" target="_blank" class="text-truncate" style="max-width: 400px;" title="${tab.url}">${tab.url}</a>
               </div>
               <small class="text-muted">${formattedDate}</small>
