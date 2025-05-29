@@ -125,7 +125,7 @@ The background service worker monitors tab creation events and prompts for inten
 
 ![Demo GIF](path/to/demo.gif)
 
-👉 [Watch the demo video](#) *(Coming soon)*
+👉 [Watch the demo video](https://youtu.be/K1VNzrKkV7c)
 
 **Sample Exported Session:**
 ```json
@@ -164,8 +164,8 @@ TabSage targets knowledge workers, students, researchers, and professionals who 
 
 ## 🔗 Links
 
-- [GitHub Repository](#) *(Coming soon)*
-- [Demo Video](#) *(Coming soon)*
+- [GitHub Repository](https://github.com/gyanchandra2910/TabSage-ChromeExtension)
+- [Demo Video](https://youtu.be/K1VNzrKkV7c)
 
 ## 🤝 Contributing
 
