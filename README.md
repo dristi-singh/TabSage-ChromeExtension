@@ -5,19 +5,98 @@
   <p><i>HackVortex 2025 Submission by Silicon Savants</i></p>
 </div>
 
-## 🧠 Overview
+## 📑 Table of Contents
 
-TabSage is a Chrome extension that helps you conquer tab overload by capturing the *intent* behind each tab you open. By requiring you to specify why you're opening a tab, TabSage transforms your browsing experience from chaotic to purposeful.
+- [Problem Statement](#-problem-statement)
+- [Approach & Solution](#-approach--solution)
+- [Innovation & Uniqueness](#-innovation--uniqueness)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture & Workflow](#-architecture--workflow)
+- [Installation & Usage](#-installation--usage)
+- [Screenshots](#-screenshots)
+- [Scalability & Real-World Impact](#-scalability--real-world-impact)
+- [Future Enhancements](#-future-enhancements)
+- [Links](#-links)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-Unlike typical tab managers that focus only on visual organization, TabSage takes an intent-first approach: grouping your tabs by purpose, not just by domain or time opened.
+## 🚩 Problem Statement
+
+Modern web browsing suffers from tab overload, where users open dozens of tabs without clear organization or purpose, leading to cognitive load, reduced productivity, and browser resource strain. Traditional tab managers only organize by domain or time opened, failing to capture the underlying purpose of why tabs were opened in the first place.
+
+## 💡 Approach & Solution
+
+TabSage takes an intent-first approach to tab management. Rather than focusing solely on the visual organization of tabs, we capture the purpose behind each tab at the moment of creation. After exploring both automatic and manual intent capture options, we implemented a hybrid solution that allows users to specify their intent through a clean, non-disruptive interface, transforming chaotic browsing into an organized, purpose-driven experience.
+
+## 🔍 Innovation & Uniqueness
+
+- **Intent-Centric Design**: Unlike domain-based organizers, TabSage captures the "why" behind each tab, enabling truly contextual organization
+- **Cognitive Load Reduction**: By requiring intent definition, TabSage encourages mindful browsing and reduces unnecessary tab proliferation
+- **Session Portability**: The export feature creates portable, standardized browsing session records that can be referenced across devices or shared with teams
 
 ## ✨ Features
 
-- **Intent Capture**: Record the purpose behind each tab via a dropdown of common intents or custom entries
-- **Dashboard View**: See all your tabs organized by intent groups for easier navigation
-- **Tab Management**: Close entire groups of related tabs with one click
-- **Export Sessions**: Save your browsing sessions as JSON for later reference or analysis
-- **Intent Renaming**: Easily reorganize your tabs by updating their associated intent groups
+- **🧠 Intent Capture**: Record the purpose behind each tab via a dropdown of common intents or custom entries
+- **📊 Dashboard View**: See all your tabs organized by intent groups for easier navigation and context switching
+- **🗑️ Tab Management**: Close entire groups of related tabs with one click, maintaining focus on current priorities
+- **💾 Export Sessions**: Save your browsing sessions as JSON for later reference, analysis, or sharing
+- **🏷️ Intent Renaming**: Easily reorganize your tabs by updating their associated intent groups
+
+## ⚙️ Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Extension Framework | Chrome Extension API (Manifest V3) |
+| Frontend | HTML5, CSS3, JavaScript |
+| UI Framework | Bootstrap 5 |
+| Icons | Font Awesome 6 |
+| Storage | Chrome Storage API |
+| Data Format | JSON |
+
+## 📐 Architecture & Workflow
+
+```
+┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+│                 │      │                 │      │                 │
+│   New Tab       │─────▶│  Intent Popup   │─────▶│ Storage Service │
+│   Created       │      │  (User Input)   │      │ (Chrome.storage)│
+│                 │      │                 │      │                 │
+└─────────────────┘      └─────────────────┘      └────────┬────────┘
+                                                           │
+                                                           ▼
+┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+│                 │      │                 │      │                 │
+│ Export Function │◀─────│  Dashboard UI   │◀─────│  Tab Data       │
+│ (JSON Output)   │      │  (Group View)   │      │  Retrieval      │
+│                 │      │                 │      │                 │
+└─────────────────┘      └─────────────────┘      └─────────────────┘
+```
+
+The background service worker monitors tab creation events and prompts for intent. User selections are stored via Chrome's storage API and organized in the dashboard view. The dashboard retrieves all saved tabs, groups them by intent, and provides management functions.
+
+## 🚀 Installation & Usage
+
+1. **Install the Extension**
+   - Download or clone this repository
+   - Open Chrome and navigate to `chrome://extensions/`
+   - Enable "Developer mode" at the top-right corner
+   - Click "Load unpacked" and select the TabSage folder
+
+2. **Setting Tab Intents**
+   - Click the TabSage icon in your toolbar when you open a new tab
+   - Choose from the dropdown list or create a custom intent
+   - Click "Save Intent" to record your purpose for that tab
+
+3. **Managing Your Tabs**
+   - Click "Open Dashboard" in the popup to see all your organized tabs
+   - View statistics about your current browsing session
+   - Close entire intent groups with a single click
+   - Rename intent categories to reorganize your workflow
+
+4. **Exporting Sessions**
+   - Click the "Export Session" button on the dashboard
+   - Save the JSON file for future reference or analysis
 
 ## 📸 Screenshots
 
@@ -44,6 +123,10 @@ Unlike typical tab managers that focus only on visual organization, TabSage take
   </tr>
 </table>
 
+![Demo GIF](path/to/demo.gif)
+
+👉 [Watch the demo video](#) *(Coming soon)*
+
 **Sample Exported Session:**
 ```json
 {
@@ -67,43 +150,34 @@ Unlike typical tab managers that focus only on visual organization, TabSage take
 }
 ```
 
-## 🚀 How It Works
+## 🌐 Scalability & Real-World Impact
 
-1. **Manual Intent Capture:** When you open a new tab, click the TabSage icon to specify your intent
-2. **Select or Create Intent:** Choose from common intents or specify a custom one
-3. **Organized Dashboard:** Access your dashboard to see all tabs grouped by intent
-4. **Manage With Ease:** Close, rename, or export tab groups as needed
+TabSage targets knowledge workers, students, researchers, and professionals who regularly juggle multiple contexts in their browsing sessions. The solution scales effortlessly across individual and team workflows, with potential integration into enterprise environments for collaborative research and information sharing. By reducing cognitive load and improving digital organization, TabSage directly addresses the growing problem of information overload, potentially saving users hours weekly in context-switching and tab hunting.
 
-> **Note:** While we initially tested automatic popups for intent capture, user feedback revealed a strong preference for manual triggering. This approach provides the benefits of intent tracking without disrupting the browsing flow.
+## 🔮 Future Enhancements
 
-## 📋 Installation
+- **Smart Intent Prediction**: Machine learning to suggest intents based on URL patterns and user history
+- **Synchronization**: Optional cloud sync for saving intent sessions across devices
+- **Time Tracking**: Integration with productivity tools to measure time spent on different browsing intents
+- **Team Collaboration**: Ability to share organized tab groups with team members for collaborative research
+- **Browser Integration**: Deeper integration with Chrome's tab groups API for native group visualization
 
-1. Download or clone this repository
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" at the top-right corner
-4. Click "Load unpacked" and select the TabSage folder
-5. The TabSage extension is now installed and ready to use
+## 🔗 Links
 
-## 🎯 Usage
+- [GitHub Repository](#) *(Coming soon)*
+- [Demo Video](#) *(Coming soon)*
 
-- **Intent Selection:** Click the TabSage icon in your toolbar to set your intent for the current tab
-- **Dashboard Access:** Click "Open Dashboard" in the popup to see all your organized tabs
-- **Tab Management:**
-  - View tabs grouped by intent
-  - Close entire groups with one click
-  - Rename intents to reorganize your tabs
-- **Session Export:** Save your current browsing session as a JSON file for future reference
+## 🤝 Contributing
 
-## 🛠️ Made With Thought
+Contributions are welcome! To contribute to TabSage:
 
-TabSage wasn't just built — it was **designed** to solve a real browsing problem: too many tabs, too little focus. We explored multiple approaches (like automatic popups vs. manual intent entry), and chose a middle ground that keeps the extension helpful without being disruptive.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-If we had more time, here's what we'd explore further:
-- Better handling of tab reloads vs. true new tabs
-- Optional cloud sync for saving intent sessions
-- More contextual suggestions for common intents
-
-We hope TabSage is useful — or inspires new ideas for managing tabs with more intention.
+Please ensure your code follows our coding standards and includes appropriate documentation.
 
 ## 📁 Project Structure
 
