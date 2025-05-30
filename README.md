@@ -199,6 +199,10 @@ TabSage/
 
 This project is licensed under the MIT License.
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ---
 
-&copy; 2025 The Silicon Savants. All rights reserved.
+&copy; 2025 The Silicon Savants
