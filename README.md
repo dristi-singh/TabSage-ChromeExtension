@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src="Screenshots/Popup_Intent_Selector.png" alt="TabSage Logo" width="400">
-  <p><i>HackVortex 2025 Submission by Silicon Savants</i></p>
+  <p><i>HackVortex 2025 Submission by The Silicon Savants</i></p>
 </div>
 
 ## 📑 Table of Contents
